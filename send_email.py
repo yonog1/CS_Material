@@ -20,7 +20,6 @@ message = EmailMessage()
 message["From"] = sender_email
 message["To"] = receiver_email
 message["Subject"] = subject
-#message.set_content(body)
 
 html = f"""
 <html>
