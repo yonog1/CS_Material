@@ -39,6 +39,6 @@ with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
     try:
         server.login(sender_email, keyring.get_password(SERVICE_ID, sender_email))
         server.sendmail(sender_email, receiver_email, message.as_string())
-        print("Successs")
+        print("Success")
     except smtplib.SMTPAuthenticationError or TypeError:
         print("Wrong password, please try again.")
