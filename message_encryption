@@ -1,0 +1,39 @@
+from concurrent.futures import process
+import cryptography
+from cryptography import fernet
+
+f = cryptography.fernet
+
+key_type = input("(N)ew or (O)ld key? ")
+
+if key_type.lower() == 'n':
+    key = f.Fernet.generate_key()
+    print_key = key.decode("ASCII")
+    with open("encryption_key.txt", 'w') as file:
+        file.write("SAVE THIS KEY TO DECRYPT DATA\nDO NO SHARE THIS KEY WITH ANYONE\n==============================================\n")
+        file.write(print_key)
+    print(print_key)
+elif key_type.lower() == 'o':
+    key = input("Enter key: \n")
+    key = key.encode("ASCII")
+
+def read():
+    paste = input("Enter message: \n").encode("ASCII")
+    paste = f.Fernet(key).decrypt(paste)
+    print(paste.decode("ASCII"))
+
+def write():
+    message = input("Enter message: \n").encode("ASCII")
+    message = f.Fernet(key).encrypt(message)
+    print(message.decode("ASCII"))
+
+while True:
+    process = input("(R)ead or (W)rite or (Q)uit? \n")
+    if process.lower() == 'q':
+        break
+    elif process.lower() == 'r':
+        read()
+    elif process.lower() == 'w':
+        write()
+    else:
+        print("Please check entry!")
